@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mumu.dao.UserMapper">
+
+    <resultMap id="userResultMap" type="com.mumu.dto.User">
+        <result column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="ipasswordd" />
+        <result column="birthday" property="birthday" />
+    </resultMap>
+
+    <sql id="find_xxx">
+        <![CDATA[
+			SELECT id ,username,password,birthday
+	    ]]>
+    </sql>
+
+    <sql id="from_xxx">
+        <![CDATA[
+	    	FROM user
+	    ]]>
+    </sql>
+
+    <sql id="where_xxx">
+        <![CDATA[
+	    	WHERE 1=1
+	    ]]>
+    </sql>
+
+    <select id="findById" parameterType="long" resultMap="userResultMap">
+        <include refid="find_xxx" />
+        <include refid="from_xxx" />
+        <![CDATA[
+			WHERE ID=#{id}
+		]]>
+    </select>
+
+    <select id="findUserByCondition" parameterType="com.mumu.dto.UserQueryCondition" resultMap="userResultMap">
+        <include refid="find_xxx" />
+        <include refid="from_xxx" />
+        <where>
+            <if test="username != null and username != ''"> username like '%${keywords}%'</if>
+            <if test="age != null"><![CDATA[ age >   #{age}]]></if>
+            <if test="ageTo != null"><![CDATA[ age < #{ageTo}]]>   </if>
+        </where>
+        order by birthday desc
+    </select>
+
+    <select id="findUserByPage" parameterType="string" resultMap="userResultMap">
+        <include refid="find_xxx" />
+        <include refid="from_xxx" />
+        <where>
+            <if test="username != null and username != ''"> username like '%${username}%'</if>
+        </where>
+        order by createtime desc
+    </select>
+    <select id="findUserByName" parameterType="string" resultMap="userResultMap">
+        <include refid="find_xxx" />
+        <include refid="from_xxx" />
+        <where>
+            <if test="username != null and username != ''"> username like '%${username}%'</if>
+        </where>
+        order by createtime desc
+        limit 1
+    </select>
+    <select id="findUserById" parameterType="long" resultMap="userResultMap">
+        <include refid="find_xxx" />
+        <include refid="from_xxx" />
+        <where>
+            <if test="id != null">id = #{id}</if>
+        </where>
+    </select>
+
+    <update id="update" parameterType="com.mumu.dto.User">
+        UPDATE user
+        <set>
+            <if test="username != null and username!='' ">
+                username = #{username},
+            </if>
+            <if test="password != null and password!='' ">
+                password = #{password},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+        </set>
+        WHERE ID = #{id}
+    </update>
+
+    <insert id="insert" parameterType="com.mumu.dto.User">
+        insert into user(username,password,birthday,age) values(#{username},#{password},#{birthday},#{age})
+    </insert>
+
+    <delete id="delete" parameterType="string">
+        DELETE FROM user WHERE ID = #{id}
+    </delete>
+
+</mapper>
