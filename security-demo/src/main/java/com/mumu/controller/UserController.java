@@ -25,10 +25,10 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public Map create(@Valid @RequestBody User user, BindingResult errors){
-        //使用json字符串传递参数
-        if(errors.hasErrors())
-            errors.getAllErrors().stream().forEach(error -> System.out.println(error.getDefaultMessage()));
+    public Map create(@Valid @RequestBody User user /* BindingResult errors*/){
+//        使用json字符串传递参数
+//        if(errors.hasErrors())
+//            errors.getAllErrors().stream().forEach(error -> System.out.println(error.getDefaultMessage()));
         System.out.println(user);
         int result = userService.save(user);
         Map<String,Object> map  = new HashMap<>();

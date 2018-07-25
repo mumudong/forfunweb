@@ -6,7 +6,7 @@
     <resultMap id="userResultMap" type="com.mumu.dto.User">
         <result column="id" property="id" />
         <result column="username" property="username" />
-        <result column="password" property="ipasswordd" />
+        <result column="password" property="password" />
         <result column="birthday" property="birthday" />
     </resultMap>
 
@@ -92,7 +92,7 @@
         insert into user(username,password,birthday,age) values(#{username},#{password},#{birthday},#{age})
     </insert>
 
-    <delete id="delete" parameterType="string">
+    <delete id="delete" parameterType="long">
         DELETE FROM user WHERE ID = #{id}
     </delete>
 
