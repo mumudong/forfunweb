@@ -3,6 +3,7 @@ package com.mumu.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mumu.dto.User;
 import com.mumu.dto.UserQueryCondition;
+import com.mumu.exception.UserNotFoundException;
 import com.mumu.service.UserService;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -65,6 +66,9 @@ public class UserController {
     @JsonView(User.UserDetailView.class)
     public User getInfo(@PathVariable Long id){
         User user = userService.findById(id);
+        if(user == null){
+            throw new UserNotFoundException(id);
+        }
         System.out.println(user);
         return user;
     }
