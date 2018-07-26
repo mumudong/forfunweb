@@ -40,9 +40,17 @@
         <include refid="find_xxx" />
         <include refid="from_xxx" />
         <where>
-            <if test="username != null and username != ''"> username like '%${keywords}%'</if>
-            <if test="age != null"><![CDATA[ age >   #{age}]]></if>
-            <if test="ageTo != null"><![CDATA[ age < #{ageTo}]]>   </if>
+            <if test="username != null and username != ''"> username like '%${username}%'</if>
+            <if test="age != null and age != 0">
+                <![CDATA[
+                   and age > #{age}
+                ]]>
+            </if>
+            <if test="ageTo != 0">
+                <![CDATA[
+                  and age < #{ageTo}
+                ]]>
+            </if>
         </where>
         order by birthday desc
     </select>

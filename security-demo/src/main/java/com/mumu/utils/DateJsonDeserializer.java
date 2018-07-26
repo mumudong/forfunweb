@@ -17,7 +17,7 @@ public class DateJsonDeserializer extends JsonDeserializer<Date> {
     @Override
     public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
         try{
-            System.out.println("-->" + jsonParser.getText());
+            System.out.println("json反序列化 -->" + jsonParser.getText());
             return format.parse(jsonParser.getText());
         }catch(Exception e){
             System.out.println(e.getMessage());

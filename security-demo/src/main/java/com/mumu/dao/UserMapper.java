@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UserMapper extends BaseMapper<Long,User>{
-    List<User> findUserByCondition(@Param("condition") UserQueryCondition condition);
+    List<User> findUserByCondition(UserQueryCondition condition);
     List<User> findUserByPage(@Param("username") String username);
     User findUserByName(@Param("username") String username);
     User findUserById(@Param("id") Long id);
