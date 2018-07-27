@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * Created by Administrator on 2018/7/25.
  */
-@Entity
+@Entity(name = "user")
 @Table(name = "user")
 public class UserLogin implements Serializable{
     //定义视图接口

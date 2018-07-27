@@ -27,14 +27,15 @@ public class MyUserDetailService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        logger.info(String.format("登陆用户名：",username));
-        UserLogin userLoggin = userDao.findByUsername(username);
-        logger.info(String.format("用户信息：", userLoggin));
-        String password = "";
-        if(userLoggin != null)
-            password = passwordEncoder.encode(userLoggin.getPassword());
-        logger.info(String.format("加密密码：", password));
-        return new User(username,password,true,true,true,true,
+        logger.info("登录用户名:" + username);
+        UserLogin user = userDao.findByUsername(username);
+        logger.info(String.format("用户信息：",user));
+        // 根据用户名查找用户信息
+        //根据查找到的用户信息判断用户是否被冻结
+        String password = passwordEncoder.encode("123456");
+        logger.info("数据库密码是:"+password);
+        return new User(username, password,
+                true, true, true, true,
                 AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
 }

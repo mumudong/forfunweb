@@ -18,7 +18,7 @@
 
     <sql id="from_xxx">
         <![CDATA[
-	    	FROM userLoggin
+	    	FROM user
 	    ]]>
     </sql>
 
@@ -81,7 +81,7 @@
     </select>
 
     <update id="update" parameterType="com.mumu.bean.UserLogin">
-        UPDATE userLoggin
+        UPDATE user
         <set>
             <if test="username != null and username!='' ">
                 username = #{username},
@@ -97,11 +97,11 @@
     </update>
 
     <insert id="insert" parameterType="com.mumu.bean.UserLogin">
-        insert into userLoggin(username,password,birthday,age) values(#{username},#{password},#{birthday},#{age})
+        insert into user(username,password,birthday,age) values(#{username},#{password},#{birthday},#{age})
     </insert>
 
     <delete id="delete" parameterType="long">
-        DELETE FROM userLoggin WHERE ID = #{id}
+        DELETE FROM user WHERE ID = #{id}
     </delete>
 
 </mapper>
