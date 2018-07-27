@@ -3,7 +3,7 @@
 
 <mapper namespace="com.mumu.dao.UserMapper">
 
-    <resultMap id="userResultMap" type="com.mumu.dto.User">
+    <resultMap id="userResultMap" type="com.mumu.bean.UserLogin">
         <result column="id" property="id" />
         <result column="username" property="username" />
         <result column="password" property="password" />
@@ -18,7 +18,7 @@
 
     <sql id="from_xxx">
         <![CDATA[
-	    	FROM user
+	    	FROM userLoggin
 	    ]]>
     </sql>
 
@@ -36,7 +36,7 @@
 		]]>
     </select>
 
-    <select id="findUserByCondition" parameterType="com.mumu.dto.UserQueryCondition" resultMap="userResultMap">
+    <select id="findUserByCondition" parameterType="com.mumu.bean.UserQueryCondition" resultMap="userResultMap">
         <include refid="find_xxx" />
         <include refid="from_xxx" />
         <where>
@@ -80,8 +80,8 @@
         </where>
     </select>
 
-    <update id="update" parameterType="com.mumu.dto.User">
-        UPDATE user
+    <update id="update" parameterType="com.mumu.bean.UserLogin">
+        UPDATE userLoggin
         <set>
             <if test="username != null and username!='' ">
                 username = #{username},
@@ -96,12 +96,12 @@
         WHERE ID = #{id}
     </update>
 
-    <insert id="insert" parameterType="com.mumu.dto.User">
-        insert into user(username,password,birthday,age) values(#{username},#{password},#{birthday},#{age})
+    <insert id="insert" parameterType="com.mumu.bean.UserLogin">
+        insert into userLoggin(username,password,birthday,age) values(#{username},#{password},#{birthday},#{age})
     </insert>
 
     <delete id="delete" parameterType="long">
-        DELETE FROM user WHERE ID = #{id}
+        DELETE FROM userLoggin WHERE ID = #{id}
     </delete>
 
 </mapper>

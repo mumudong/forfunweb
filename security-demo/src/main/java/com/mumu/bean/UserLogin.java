@@ -1,19 +1,12 @@
-package com.mumu.dto;
+package com.mumu.bean;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mumu.utils.DateJsonDeserializer;
-import com.mumu.utils.DateJsonSerializer;
 import com.mumu.validator.MyConstraint;
-import org.apache.commons.lang.time.DateUtils;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.Past;
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -21,7 +14,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "user")
-public class User implements Serializable{
+public class UserLogin implements Serializable{
     //定义视图接口
     public interface UserSimpleView{}
     public interface UserDetailView extends UserSimpleView{}
@@ -86,7 +79,7 @@ public class User implements Serializable{
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserLoggin{" +
                 "id='" + id + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

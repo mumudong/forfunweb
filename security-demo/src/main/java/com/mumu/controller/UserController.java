@@ -1,8 +1,8 @@
 package com.mumu.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mumu.dto.User;
-import com.mumu.dto.UserQueryCondition;
+import com.mumu.bean.UserLogin;
+import com.mumu.bean.UserQueryCondition;
 import com.mumu.exception.UserNotFoundException;
 import com.mumu.service.UserService;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
@@ -26,26 +26,26 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public Map create(@Valid @RequestBody User user /* BindingResult errors*/){
+    public Map create(@Valid @RequestBody UserLogin userLogin /* BindingResult errors*/){
 //        使用json字符串传递参数
 /**        if(errors.hasErrors())
-            errors.getAllErrors().stream().forEach(error -> System.out.println(error.getDefaultMessage()));*/
-        System.out.println(user);
-        int result = userService.save(user);
+            errors.getAllErrors().stream().forEach(resources.error -> System.out.println(resources.error.getDefaultMessage()));*/
+        System.out.println(userLogin);
+        int result = userService.save(userLogin);
         Map<String,Object> map  = new HashMap<>();
-        map.put("user",user);
+        map.put("userLogin", userLogin);
         map.put("result",result);
         return map;
     }
 
     @PutMapping("/{id:\\d+}")
-    public Map update(@Valid @RequestBody User user,BindingResult errors){
+    public Map update(@Valid @RequestBody UserLogin userLogin, BindingResult errors){
         if(errors.hasErrors())
             errors.getAllErrors().stream().forEach(error -> System.out.println(error.getDefaultMessage()));
-        System.out.println(user);
-        int result = userService.update(user);
+        System.out.println(userLogin);
+        int result = userService.update(userLogin);
         Map<String,Object> map  = new HashMap<>();
-        map.put("user",user);
+        map.put("userLogin", userLogin);
         map.put("result",result);
 
         return map;
@@ -57,19 +57,19 @@ public class UserController {
     }
 
     @GetMapping
-    @JsonView(User.UserSimpleView.class)
-    public List<User> query(UserQueryCondition condition){
+    @JsonView(UserLogin.UserSimpleView.class)
+    public List<UserLogin> query(UserQueryCondition condition){
         System.out.println(ReflectionToStringBuilder.toString(condition, ToStringStyle.MULTI_LINE_STYLE));
         return userService.findByCondition(condition);
     }
     @GetMapping("/{id:\\d+}")
-    @JsonView(User.UserDetailView.class)
-    public User getInfo(@PathVariable Long id){
-        User user = userService.findById(id);
-        if(user == null){
+    @JsonView(UserLogin.UserDetailView.class)
+    public UserLogin getInfo(@PathVariable Long id){
+        UserLogin userLogin = userService.findById(id);
+        if(userLogin == null){
             throw new UserNotFoundException(id);
         }
-        System.out.println(user);
-        return user;
+        System.out.println(userLogin);
+        return userLogin;
     }
 }

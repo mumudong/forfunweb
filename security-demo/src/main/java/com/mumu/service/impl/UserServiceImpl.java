@@ -1,9 +1,8 @@
 package com.mumu.service.impl;
 
-import com.mumu.dao.UserDao;
 import com.mumu.dao.UserMapper;
-import com.mumu.dto.User;
-import com.mumu.dto.UserQueryCondition;
+import com.mumu.bean.UserLogin;
+import com.mumu.bean.UserQueryCondition;
 import com.mumu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,22 +15,20 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserDao userDao;
-    @Autowired
     private UserMapper userMapper;
     @Override
-    public int save(User user) {
-        int result = userMapper.insert(user);
+    public int save(UserLogin userLogin) {
+        int result = userMapper.insert(userLogin);
         return result;
     }
 
     @Override
-    public int update(User user) {
-        return userMapper.update(user);
+    public int update(UserLogin userLogin) {
+        return userMapper.update(userLogin);
     }
 
     @Override
-    public User find(String username) {
+    public UserLogin find(String username) {
         return userMapper.findUserByName(username);
     }
 
@@ -41,12 +38,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findByCondition(UserQueryCondition condition) {
+    public List<UserLogin> findByCondition(UserQueryCondition condition) {
         return userMapper.findUserByCondition(condition);
     }
 
     @Override
-    public User findById(Long id) {
+    public UserLogin findById(Long id) {
         return userMapper.findUserById(id);
     }
 }

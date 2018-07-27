@@ -27,7 +27,7 @@ public class TimeInterceptor implements HandlerInterceptor{
         System.out.println("preHandle ..." + ((HandlerMethod)handler).getBean().getClass().getName());
         System.out.println("preHandle ..." + ((HandlerMethod)handler).getMethod().getName());
         System.out.println("preHandle ..." + Arrays.asList(((HandlerMethod)handler).getMethodParameters()));
-        request.setAttribute("preHandle ...startTime",System.currentTimeMillis());
+        request.setAttribute("startTime",System.currentTimeMillis());
         return true;
     }
 

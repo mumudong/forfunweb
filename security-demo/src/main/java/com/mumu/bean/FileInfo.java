@@ -1,4 +1,4 @@
-package com.mumu.dto;
+package com.mumu.bean;
 
 public class FileInfo {
     private String path;

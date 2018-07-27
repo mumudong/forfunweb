@@ -1,7 +1,7 @@
 package com.mumu.dao;
 
-import com.mumu.dto.User;
-import com.mumu.dto.UserQueryCondition;
+import com.mumu.bean.UserLogin;
+import com.mumu.bean.UserQueryCondition;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -13,9 +13,9 @@ import java.util.List;
  */
 @Mapper
 @Repository
-public interface UserMapper extends BaseMapper<Long,User>{
-    List<User> findUserByCondition(UserQueryCondition condition);
-    List<User> findUserByPage(@Param("username") String username);
-    User findUserByName(@Param("username") String username);
-    User findUserById(@Param("id") Long id);
+public interface UserMapper extends BaseMapper<Long,UserLogin>{
+    List<UserLogin> findUserByCondition(UserQueryCondition condition);
+    List<UserLogin> findUserByPage(@Param("username") String username);
+    UserLogin findUserByName(@Param("username") String username);
+    UserLogin findUserById(@Param("id") Long id);
 }
