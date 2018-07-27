@@ -14,7 +14,7 @@ import java.util.Map;
 public class ExceptionController {
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Map<String,Object> handlerUserNotFoundException(UserNotFoundException exception){
         Map<String,Object> result = new HashMap<>();
         result.put("id",exception.getId());
