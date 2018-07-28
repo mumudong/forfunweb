@@ -27,7 +27,7 @@ public class BrowserSecurityController {
     @Autowired
     private SecurityProperties securityProperties;
     /**
-     * 登录跳转
+     * 访问页面时若验证未通过，则引导登录跳转
      * @param request
      * @return
      */

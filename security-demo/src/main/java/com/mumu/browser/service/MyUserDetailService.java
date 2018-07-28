@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by Administrator on 2018/7/27.
+ * 登录验证UserServiceDetail
  */
 @Component
 public class MyUserDetailService implements UserDetailsService {

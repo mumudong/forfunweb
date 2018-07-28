@@ -19,6 +19,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * 验证码生成逻辑
+ */
 @RestController
 public class ValidateCodeController {
     public static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";

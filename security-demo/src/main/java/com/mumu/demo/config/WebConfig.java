@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2018/7/27.
+ * 配置time Filter
  */
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter{

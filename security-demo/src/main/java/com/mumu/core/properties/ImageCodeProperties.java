@@ -1,5 +1,8 @@
 package com.mumu.core.properties;
 
+/**
+ * 图片验证码特征属性
+ */
 public class ImageCodeProperties {
     private int width = 67;
     private int height = 23;

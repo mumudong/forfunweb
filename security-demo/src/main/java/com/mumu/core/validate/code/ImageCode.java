@@ -3,6 +3,9 @@ package com.mumu.core.validate.code;
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
 
+/**
+ * 图形验证码
+ */
 public class ImageCode {
     private BufferedImage image;
     private String code;
