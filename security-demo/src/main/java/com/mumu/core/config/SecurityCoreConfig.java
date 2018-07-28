@@ -1,4 +1,4 @@
-package com.mumu.core;
+package com.mumu.core.config;
 
 import com.mumu.browser.config.BrowserSecurityConfig;
 import com.mumu.core.properties.SecurityProperties;

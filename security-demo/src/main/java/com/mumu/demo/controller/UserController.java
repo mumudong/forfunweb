@@ -8,6 +8,7 @@ import com.mumu.demo.service.UserService;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,10 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+    @GetMapping("/me/me")
+    public Object getCurrentUser(){
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
 
     @PostMapping
     public Map create(@Valid @RequestBody UserLogin userLogin /* BindingResult errors*/){
