@@ -1,6 +1,8 @@
-package com.mumu.core.validate.code;
+package com.mumu.core.validate.code.image;
 
 import com.mumu.core.properties.SecurityProperties;
+import com.mumu.core.validate.code.ValidateCodeGenerator;
+import com.mumu.core.validate.code.image.ImageCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;

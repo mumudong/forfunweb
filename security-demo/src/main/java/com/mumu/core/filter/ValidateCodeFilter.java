@@ -2,7 +2,7 @@ package com.mumu.core.filter;
 
 import com.mumu.core.controller.ValidateCodeController;
 import com.mumu.core.properties.SecurityProperties;
-import com.mumu.core.validate.code.ImageCode;
+import com.mumu.core.validate.code.image.ImageCode;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;

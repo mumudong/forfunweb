@@ -29,9 +29,8 @@ public class BrowserSecurityController {
     /**
      * 访问页面时若验证未通过，则引导登录跳转
      * @param request
-     * @return
      */
-    @RequestMapping("/authentication/mumu")
+    @RequestMapping("/authentication/require")
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     public SimpleResponse requireAuthentication(HttpServletRequest request, HttpServletResponse response)
                                 throws Exception{

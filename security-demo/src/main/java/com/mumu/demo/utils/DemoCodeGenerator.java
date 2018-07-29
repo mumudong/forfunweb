@@ -1,8 +1,7 @@
 package com.mumu.demo.utils;
 
-import com.mumu.core.validate.code.ImageCode;
+import com.mumu.core.validate.code.image.ImageCode;
 import com.mumu.core.validate.code.ValidateCodeGenerator;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 //@Component("imageCodeGenerator")
 public class DemoCodeGenerator implements ValidateCodeGenerator {

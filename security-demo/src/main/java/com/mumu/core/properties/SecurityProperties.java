@@ -1,5 +1,7 @@
 package com.mumu.core.properties;
 
+import com.mumu.core.properties.browser.BrowserProperties;
+import com.mumu.core.properties.code.ValidateCodeProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
