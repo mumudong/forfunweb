@@ -1,6 +1,7 @@
 package com.mumu.browser.controller;
 
 import com.mumu.browser.bean.SimpleResponse;
+import com.mumu.core.properties.SecurityConstants;
 import com.mumu.core.properties.SecurityProperties;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -30,7 +31,7 @@ public class BrowserSecurityController {
      * 访问页面时若验证未通过，则引导登录跳转
      * @param request
      */
-    @RequestMapping("/authentication/require")
+    @RequestMapping(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     public SimpleResponse requireAuthentication(HttpServletRequest request, HttpServletResponse response)
                                 throws Exception{
