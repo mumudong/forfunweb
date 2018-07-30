@@ -1,5 +1,6 @@
 package com.mumu.core.config;
 
+import com.mumu.browser.service.MyUserDetailService;
 import com.mumu.core.validate.code.sms.SmsCodeAuthenticationFilter;
 import com.mumu.core.validate.code.sms.SmsCodeAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,8 @@ public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapt
         smsCodeAuthenticationFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
 
         SmsCodeAuthenticationProvider smsCodeAuthenticationProvider = new SmsCodeAuthenticationProvider();
-        smsCodeAuthenticationProvider.setUserDetailsService(userDetailsService);
+        MyUserDetailService myUserDetailService = new MyUserDetailService();
+        smsCodeAuthenticationProvider.setUserDetailsService(myUserDetailService);
 
         http.authenticationProvider(smsCodeAuthenticationProvider)
                 .addFilterAfter(smsCodeAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

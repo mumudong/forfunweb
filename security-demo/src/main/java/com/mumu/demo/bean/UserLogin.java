@@ -31,6 +31,9 @@ public class UserLogin implements Serializable{
 //    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date birthday;
     private int age;
+    @Column(unique = true)
+    private String phone;
+
 
     public int getAge() {
         return age;
@@ -77,6 +80,14 @@ public class UserLogin implements Serializable{
         this.age = new Date().getYear() - birthday.getYear();
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     public String toString() {
         return "UserLoggin{" +
@@ -85,6 +96,7 @@ public class UserLogin implements Serializable{
                 ", password='" + password + '\'' +
                 ", birthday=" + birthday +
                 ", age=" + age +
+                ", phone=" + phone +
                 '}';
     }
 }

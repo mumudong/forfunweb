@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 验证码过滤器
+ * 验证码过滤器，校验验证码是否正确
  */
 @Component
 public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean{
