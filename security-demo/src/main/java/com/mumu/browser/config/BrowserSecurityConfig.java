@@ -1,10 +1,11 @@
 package com.mumu.browser.config;
 
-import com.mumu.core.filter.ValidateCodeFilter;
+import com.mumu.core.config.AbstractChannelSecurityConfig;
+import com.mumu.core.config.SmsCodeAuthenticationSecurityConfig;
+import com.mumu.core.config.ValidateCodeSecurityConfig;
+import com.mumu.core.properties.SecurityConstants;
 import com.mumu.core.properties.SecurityProperties;
-import com.mumu.demo.config.WebConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,29 +13,25 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import javax.sql.DataSource;
-import java.io.Serializable;
 
 @Configuration
-@AutoConfigureBefore(WebConfig.class)
+//@AutoConfigureBefore(WebConfig.class)
 //@ComponentScan(basePackages ={"com.mumu.acore"})
-public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
+public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private SecurityProperties securityProperties;
-    @Autowired
-    private AuthenticationSuccessHandler myAuthenticationSuccessHandler;
-    @Autowired
-    private AuthenticationFailureHandler myAuthenticationFailureHandler;
     @Autowired
     private DataSource dataSource;
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+    @Autowired
+    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -48,19 +45,11 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
-        validateCodeFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
-        validateCodeFilter.setSecurityProperties(securityProperties);
-        validateCodeFilter.afterPropertiesSet();
+        applyPasswordAuthenticationConfig(http);
 
-        System.out.println("----------http login config--------");
-        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
-                    .formLogin()
-             //		http.httpBasic()
-                    .loginPage("/authentication/require")
-                    .loginProcessingUrl("/authentication/form")
-                    .successHandler(myAuthenticationSuccessHandler)
-                    .failureHandler(myAuthenticationFailureHandler)
+        http.apply(validateCodeSecurityConfig)
+                .and()
+                    .apply(smsCodeAuthenticationSecurityConfig)
                 .and()
                     .rememberMe()
                     .tokenRepository(persistentTokenRepository())
@@ -68,9 +57,10 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                     .userDetailsService(userDetailsService)
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/authentication/mumu",
+                    .antMatchers(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
+                            SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                             securityProperties.getBrowser().getLoginPage(),
-                            "/code/image").permitAll()
+                            SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*").permitAll()
                     .anyRequest()
                     .authenticated()
                 .and()

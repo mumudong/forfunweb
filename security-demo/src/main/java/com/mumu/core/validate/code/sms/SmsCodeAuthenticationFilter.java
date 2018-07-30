@@ -27,8 +27,13 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
             throw new AuthenticationServiceException("Authentication method not supported:%s" + request.getMethod());
         }
         String mobile = obtainMobile(request);
-
-        return null;
+        if(mobile == null){
+            mobile = "";
+        }
+        mobile = mobile.trim();
+        SmsCodeAuthenticationToken authToKen = new SmsCodeAuthenticationToken(mobile);
+        setDetails(request,authToKen);
+        return this.getAuthenticationManager().authenticate(authToKen);
     }
 
     /**
