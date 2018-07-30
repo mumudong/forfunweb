@@ -81,8 +81,11 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
                 myAuthenticationFailureHandler.onAuthenticationFailure(request,response,e);
                 return;
             }
-            filterChain.doFilter(request,response);
         }
+        /**
+         * 这个地方写到上面的括号里面了，找了半天才找出来。。。。
+         */
+        filterChain.doFilter(request,response);
     }
     /**
      * 获取校验码类型

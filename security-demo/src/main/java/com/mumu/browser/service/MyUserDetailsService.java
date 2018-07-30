@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  * 登录验证UserServiceDetail
  */
 @Component
-public class MyUserDetailService implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private UserDao userDao;
