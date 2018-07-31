@@ -13,6 +13,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.social.security.SocialUser;
+import org.springframework.social.security.SocialUserDetails;
+import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -22,7 +25,7 @@ import javax.annotation.PostConstruct;
  */
 @Component("userDetailsService")
 @ComponentScan(basePackages = "{com.mumu.demo.service,com.mumu.demo.dao}")
-public class MyUserDetailsService implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService,SocialUserDetailsService{
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private UserDao userDao;
@@ -50,7 +53,7 @@ public class MyUserDetailsService implements UserDetailsService {
         // 根据用户名查找用户信息
         //根据查找到的用户信息判断用户是否被冻结
 
-        return new User(user.getUsername(), "666",
+        return new User(user.getUsername(), "六六六",
                 true, true, true, true,
                 AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
@@ -69,5 +72,12 @@ public class MyUserDetailsService implements UserDetailsService {
 
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @Override
+    public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
+        logger.info("登录用户ID:{}",userId);
+        UserLogin userLogin = userService.findByUserId(userId);
+        return new SocialUser(userId,);
     }
 }

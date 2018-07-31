@@ -9,6 +9,8 @@ public class BrowserProperties {
     //默认登录类型
     private LoginResponseType loginType = LoginResponseType.JSON ;
 
+    private String signUpUrl = "/demo-signup.html";
+
     private int rememberMeSeconds = 60 * 60 * 24 * 7;
 
     public String getLoginPage() {
@@ -27,6 +29,14 @@ public class BrowserProperties {
         this.loginType = loginType;
     }
 
+    public String getSignUpUrl() {
+        return signUpUrl;
+    }
+
+    public void setSignUpUrl(String signUpUrl) {
+        this.signUpUrl = signUpUrl;
+    }
+
     public int getRememberMeSeconds() {
         return rememberMeSeconds;
     }
@@ -34,4 +44,5 @@ public class BrowserProperties {
     public void setRememberMeSeconds(int rememberMeSeconds) {
         this.rememberMeSeconds = rememberMeSeconds;
     }
+
 }

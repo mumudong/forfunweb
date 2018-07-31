@@ -11,9 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.ServletWebRequest;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +32,13 @@ public class UserController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private UserService userService;
+    @Autowired
+    private ProviderSignInUtils providerSignInUtils;
+    @PostMapping("/regist")
+    public void regist(UserLogin user, HttpServletRequest request){
+        String userId = user.getUsername();
+        providerSignInUtils.doPostSignUp(userId,new ServletWebRequest(request));
+    }
     @GetMapping("/me/me")
     public Object getCurrentUser(){
         return SecurityContextHolder.getContext().getAuthentication();
