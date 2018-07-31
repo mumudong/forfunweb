@@ -10,3 +10,11 @@ spring security认证
 响应  <----
 
 
+
+
+短信登陆：
+    使用ValidateCodeFilter，过滤/authentication/mobile请求，验证验证码，位于UsernamePasswordAuthenticationFilter之前
+    使用SmsCodeAuthenticationFilter,SmsCodeAuthenticationProvider验证短信登陆，位于UsernamePasswordAuthenticationFilter之后
+    UsernamePasswordAuthenticationFilter--> authenticationManager --> authenticationProvider --> userDetailservice --> 验证成功
+
+

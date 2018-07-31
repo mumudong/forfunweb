@@ -1,6 +1,7 @@
 package com.mumu.core.validate.code;
 
 import com.mumu.core.filter.ValidateCodeException;
+import com.mumu.core.properties.SecurityConstants;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,6 +57,12 @@ public abstract class AbstractValidateCodeProcessor<T extends ValidateCode> impl
      */
     private void save(ServletWebRequest request, T validateCode) {
         sessionStrategy.setAttribute(request, getSessionKey(request), validateCode);
+        ValidateCodeType type = getValidateCodeType(request);
+        if(ValidateCodeType.SMS.equals(type)){
+            //将需要发送短信的手机号码放入session，然后登陆时比对
+            sessionStrategy.setAttribute(request, SecurityConstants.DEFAULT_LOGIN_PHONE_NUMBER,request.getParameter(SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE));
+            logger.info("登陆的手机号是：{}",request.getParameter(SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE));
+        }
     }
 
 
@@ -105,7 +112,9 @@ public abstract class AbstractValidateCodeProcessor<T extends ValidateCode> impl
         } catch (ServletRequestBindingException e) {
             throw new ValidateCodeException("获取验证码的值失败");
         }
-        System.out.println(codeInSession.getCode() + codeInRequest);
+
+
+
         if (StringUtils.isBlank(codeInRequest)) {
             throw new ValidateCodeException(processorType + "验证码的值不能为空");
         }

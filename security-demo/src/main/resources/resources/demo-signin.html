@@ -8,12 +8,12 @@
 <script>
     $(document).ready(function(){
         $("#smsCode").click(function(){
-            alert("smsCode" + $("#mobile").val());
+//            alert("smsCode" + $("#mobile").val());
             $.post("/code/sms",{
                     mobile:$("#mobile").val()
                 },
                 function(data,status){
-                    alert("数据: \n" + data + "\n状态: " + status);
+//                    alert("数据: \n" + data + "\n状态: " + status);
                 });
         });
     });

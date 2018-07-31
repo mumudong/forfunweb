@@ -1,8 +1,10 @@
 package com.mumu.core.config;
 
+import com.mumu.browser.dao.UserDao;
 import com.mumu.browser.service.MyUserDetailsService;
 import com.mumu.core.validate.code.sms.SmsCodeAuthenticationFilter;
 import com.mumu.core.validate.code.sms.SmsCodeAuthenticationProvider;
+import com.mumu.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
@@ -25,6 +27,10 @@ public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapt
     private AuthenticationFailureHandler myAuthenticationFailureHandler;
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private UserService userService;
     @Override
     public void configure(HttpSecurity http) throws Exception {
         SmsCodeAuthenticationFilter smsCodeAuthenticationFilter = new SmsCodeAuthenticationFilter();
@@ -34,6 +40,8 @@ public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapt
 
         SmsCodeAuthenticationProvider smsCodeAuthenticationProvider = new SmsCodeAuthenticationProvider();
         MyUserDetailsService myUserDetailService = new MyUserDetailsService();
+        myUserDetailService.setUserDao(userDao);
+        myUserDetailService.setUserService(userService);
         smsCodeAuthenticationProvider.setUserDetailsService(myUserDetailService);
 
         http.authenticationProvider(smsCodeAuthenticationProvider)

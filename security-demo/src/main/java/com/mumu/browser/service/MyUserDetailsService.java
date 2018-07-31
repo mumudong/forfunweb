@@ -6,6 +6,7 @@ import com.mumu.demo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,10 +15,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 /**
  * 登录验证UserServiceDetail
  */
-@Component
+@Component("userDetailsService")
+@ComponentScan(basePackages = "{com.mumu.demo.service,com.mumu.demo.dao}")
 public class MyUserDetailsService implements UserDetailsService {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
@@ -47,8 +51,24 @@ public class MyUserDetailsService implements UserDetailsService {
         // 根据用户名查找用户信息
         //根据查找到的用户信息判断用户是否被冻结
 
-        return new User(user.getUsername(), "",
+        return new User(user.getUsername(), "666",
                 true, true, true, true,
                 AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+    }
+
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 }

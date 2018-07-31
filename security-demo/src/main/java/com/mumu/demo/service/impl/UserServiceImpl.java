@@ -49,6 +49,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserLogin findByPhone(String phone) {
-        return null;
+        return userMapper.findUserByPhone(phone);
     }
 }

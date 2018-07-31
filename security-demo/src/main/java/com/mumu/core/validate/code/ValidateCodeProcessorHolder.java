@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+/**
+ * 根据类型找匹配的Processor
+ */
 @Component
 public class ValidateCodeProcessorHolder {
     @Autowired
