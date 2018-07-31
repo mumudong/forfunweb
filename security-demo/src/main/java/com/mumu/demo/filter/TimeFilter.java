@@ -1,5 +1,8 @@
 package com.mumu.demo.filter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.*;
 import java.io.IOException;
 
@@ -9,6 +12,7 @@ import java.io.IOException;
  */
 //@Component
 public class TimeFilter implements Filter{
+    private Logger logger = LoggerFactory.getLogger(getClass());
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 //        System.out.println("time filter init ...");
@@ -16,11 +20,11 @@ public class TimeFilter implements Filter{
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("time filter dofilter");
+        logger.info("time filter dofilter");
         long start = System.currentTimeMillis();
         filterChain.doFilter(servletRequest,servletResponse);
         long end = System.currentTimeMillis();
-        System.out.println(String.format("do filter time spent:%d",end-start));
+        logger.info(String.format("do filter time spent:%d",end-start));
     }
 
     @Override

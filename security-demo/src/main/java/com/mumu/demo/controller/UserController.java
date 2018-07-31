@@ -7,6 +7,8 @@ import com.mumu.demo.exception.UserNotFoundException;
 import com.mumu.demo.service.UserService;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
@@ -23,6 +25,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private UserService userService;
     @GetMapping("/me/me")
@@ -35,7 +38,7 @@ public class UserController {
 //        使用json字符串传递参数
 /**        if(errors.hasErrors())
             errors.getAllErrors().stream().forEach(resources.error -> System.out.println(resources.error.getDefaultMessage()));*/
-        System.out.println(userLogin);
+        logger.info(userLogin.toString());
         int result = userService.save(userLogin);
         Map<String,Object> map  = new HashMap<>();
         map.put("userLogin", userLogin);
@@ -47,7 +50,7 @@ public class UserController {
     public Map update(@Valid @RequestBody UserLogin userLogin, BindingResult errors){
         if(errors.hasErrors())
             errors.getAllErrors().stream().forEach(error -> System.out.println(error.getDefaultMessage()));
-        System.out.println(userLogin);
+        logger.info(userLogin.toString());
         int result = userService.update(userLogin);
         Map<String,Object> map  = new HashMap<>();
         map.put("userLogin", userLogin);
@@ -74,7 +77,7 @@ public class UserController {
         if(userLogin == null){
             throw new UserNotFoundException(id);
         }
-        System.out.println(userLogin);
+        logger.info(userLogin.toString());
         return userLogin;
     }
 }

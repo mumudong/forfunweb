@@ -1,5 +1,7 @@
 package com.mumu.demo.interceptor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class TimeInterceptor implements HandlerInterceptor{
+    private Logger logger = LoggerFactory.getLogger(getClass());
     /**
      *  conroller某个方法执行前调用
      */
@@ -33,7 +36,7 @@ public class TimeInterceptor implements HandlerInterceptor{
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 //        System.out.println("postHandle ...");
         long start = (Long) request.getAttribute("startTime");
-        System.out.println("postHandle spent time:" + (System.currentTimeMillis() - start));
+        logger.info("postHandle spent time:" + (System.currentTimeMillis() - start));
     }
 
     /**
@@ -41,9 +44,9 @@ public class TimeInterceptor implements HandlerInterceptor{
      */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) throws Exception {
-        System.out.println("afterCompletion ...");
+        logger.info("afterCompletion ...");
         long start = (Long) request.getAttribute("startTime");
-        System.out.println("afterCompletion spent time:" + (System.currentTimeMillis() - start));
+        logger.info("afterCompletion spent time:" + (System.currentTimeMillis() - start));
 //        System.out.println("afterCompletion exception: " + e);
 //        System.out.println("afterCompletion handler: " + handler);
     }
