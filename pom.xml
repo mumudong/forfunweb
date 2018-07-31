@@ -45,5 +45,6 @@
     </build>
 	<modules>
 		<module>security-demo</module>
+        <module>security-final</module>
     </modules>
 </project>

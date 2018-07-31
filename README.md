@@ -1,4 +1,5 @@
-# forfunweb
+# forfunweb   http://www.itjc8.com/thread-3039-1-1.html
+
 springsecuritystudy
 请求处理链：Filter --> Interceptor --> ControllerAdvice --> Aspect --> Controller
       返回：Filter <-- Interceptor <-- ControllerAdvice <-- Aspect <-- Controller
@@ -17,4 +18,14 @@ spring security认证
     使用SmsCodeAuthenticationFilter,SmsCodeAuthenticationProvider验证短信登陆，位于UsernamePasswordAuthenticationFilter之后
     UsernamePasswordAuthenticationFilter--> authenticationManager --> authenticationProvider --> userDetailservice --> 验证成功
 
-
+security social        
+                                            UserConnectionRepository
+                                           (JdbcUsersConnectionRepository)
+                                                                                     db
+     serviceProvider                         connection                          UserConnection
+  (AbstractOAuth2ServiceProvider)        (OAuth2Connection)
+    OAuth2Operations                         
+    (OAuth2Template)                       connectionFactory
+        API                              (OAuth2ConnectionFactory)
+    (AbstractOAuth2APIBinding)              ServiceProvider
+                                             ApiAdapter
