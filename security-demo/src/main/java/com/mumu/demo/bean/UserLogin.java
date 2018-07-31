@@ -18,19 +18,24 @@ public class UserLogin implements Serializable{
     //定义视图接口
     public interface UserSimpleView{}
     public interface UserDetailView extends UserSimpleView{}
+
     @Id
     @GeneratedValue
     private Long id;
+
     @MyConstraint(message = "这是自定义的验证器")
     @Column(unique=true)
     private String username;
+
     @NotBlank(message = "密码不能为空")
     private String password;
-    @Past(message = "生日必须是过去的时间")
 
+    @Past(message = "生日必须是过去的时间")
 //    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date birthday;
+
     private int age;
+
     @Column(unique = true)
     private String phone;
 

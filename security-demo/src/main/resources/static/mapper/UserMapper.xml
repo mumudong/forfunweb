@@ -14,7 +14,7 @@
 
     <sql id="find_xxx">
         <![CDATA[
-			SELECT id ,username,password,birthday
+			SELECT id ,username,password,birthday,age,phone
 	    ]]>
     </sql>
 
