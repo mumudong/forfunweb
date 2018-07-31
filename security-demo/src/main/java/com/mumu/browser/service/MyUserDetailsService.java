@@ -45,7 +45,6 @@ public class MyUserDetailsService implements UserDetailsService {
     }
     public UserDetails loadUserByPhone(String phone) throws UsernameNotFoundException {
         logger.info("登录号码:{}",phone);
-        logger.info("dao:{}",userDao);
         UserLogin user = userService.findByPhone(phone);
         logger.info(String.format("用户信息：%s",user));
         // 根据用户名查找用户信息
