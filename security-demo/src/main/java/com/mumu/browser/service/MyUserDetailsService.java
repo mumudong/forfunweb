@@ -40,8 +40,9 @@ public class MyUserDetailsService implements UserDetailsService {
                 AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
     public UserDetails loadUserByPhone(String phone) throws UsernameNotFoundException {
-        logger.info("登录号码:" + phone);
-        UserLogin user = userDao.findByPhone(phone);
+        logger.info("登录号码:{}",phone);
+        logger.info("dao:{}",userDao);
+        UserLogin user = userService.findByPhone(phone);
         logger.info(String.format("用户信息：%s",user));
         // 根据用户名查找用户信息
         //根据查找到的用户信息判断用户是否被冻结

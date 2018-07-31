@@ -18,4 +18,5 @@ public interface UserMapper extends BaseMapper<Long,UserLogin>{
     List<UserLogin> findUserByPage(@Param("username") String username);
     UserLogin findUserByName(@Param("username") String username);
     UserLogin findUserById(@Param("id") Long id);
+    UserLogin findUserByPhone(@Param("phone") String phone);
 }

@@ -15,4 +15,5 @@ public interface UserService {
     public int delete(Long id);
     public List<UserLogin> findByCondition(UserQueryCondition condition);
     public UserLogin findById(Long id);
+    public UserLogin findByPhone(String phone);
 }

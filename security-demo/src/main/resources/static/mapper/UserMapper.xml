@@ -35,7 +35,13 @@
 			WHERE ID=#{id}
 		]]>
     </select>
-
+    <select id="findById" parameterType="string" resultMap="userResultMap">
+        <include refid="find_xxx" />
+        <include refid="from_xxx" />
+        <![CDATA[
+			WHERE phone=#{phone}
+		]]>
+    </select>
     <select id="findUserByCondition" parameterType="com.mumu.demo.bean.UserQueryCondition" resultMap="userResultMap">
         <include refid="find_xxx" />
         <include refid="from_xxx" />

@@ -2,6 +2,8 @@ package com.mumu.core.validate.code;
 
 import com.mumu.core.filter.ValidateCodeException;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
@@ -12,6 +14,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import java.util.Map;
 
 public abstract class AbstractValidateCodeProcessor<T extends ValidateCode> implements ValidateCodeProcessor{
+    private Logger logger = LoggerFactory.getLogger(getClass());
     /**
      * 操作session的工具类
      */
@@ -35,6 +38,7 @@ public abstract class AbstractValidateCodeProcessor<T extends ValidateCode> impl
      */
     @SuppressWarnings("unchecked")
     private T generate(ServletWebRequest request) {
+        logger.info(validateCodeGenerators.toString());
         String type = getValidateCodeType(request).toString().toLowerCase();
         String generatorName = type + ValidateCodeGenerator.class.getSimpleName();
         ValidateCodeGenerator validateCodeGenerator = validateCodeGenerators.get(generatorName);
@@ -101,7 +105,7 @@ public abstract class AbstractValidateCodeProcessor<T extends ValidateCode> impl
         } catch (ServletRequestBindingException e) {
             throw new ValidateCodeException("获取验证码的值失败");
         }
-
+        System.out.println(codeInSession.getCode() + codeInRequest);
         if (StringUtils.isBlank(codeInRequest)) {
             throw new ValidateCodeException(processorType + "验证码的值不能为空");
         }

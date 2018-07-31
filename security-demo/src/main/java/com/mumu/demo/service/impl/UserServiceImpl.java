@@ -46,4 +46,9 @@ public class UserServiceImpl implements UserService {
     public UserLogin findById(Long id) {
         return userMapper.findUserById(id);
     }
+
+    @Override
+    public UserLogin findByPhone(String phone) {
+        return null;
+    }
 }

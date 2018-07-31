@@ -1,5 +1,8 @@
 package com.mumu.core.validate.code.sms;
 
+import org.springframework.stereotype.Component;
+
+@Component("smsCodeSender")
 public class DefaultSmsCodeSender implements SmsCodeSender {
     @Override
     public void send(String mobile, String code) {

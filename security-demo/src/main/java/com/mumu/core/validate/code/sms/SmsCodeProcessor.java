@@ -4,9 +4,10 @@ import com.mumu.core.properties.SecurityConstants;
 import com.mumu.core.validate.code.AbstractValidateCodeProcessor;
 import com.mumu.core.validate.code.ValidateCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
-
+@Component("smsValidateCodeProcessor")
 public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode> {
     /**
      * 验证码发送服务

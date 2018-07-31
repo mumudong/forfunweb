@@ -4,6 +4,8 @@ import com.mumu.core.properties.SecurityProperties;
 import com.mumu.core.validate.code.ValidateCodeGenerator;
 import com.mumu.core.validate.code.image.ImageCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.*;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 
@@ -14,6 +16,7 @@ import java.util.Random;
 /**
  * 默认图形验证码生成器，若想自定义只需实现接口，指定beanname即可
  */
+@Component("imageValidateCodeGenerator")
 public class ImageCodeGenerator implements ValidateCodeGenerator {
 
     @Autowired

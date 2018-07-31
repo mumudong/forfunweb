@@ -1,7 +1,9 @@
 package com.mumu.browser.dao;
 
 import com.mumu.demo.bean.UserLogin;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 /**
  * Created by Administrator on 2018/7/25.
