@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.social.connect.ConnectionFactory;
 
 @Configuration
-@ConditionalOnProperty(prefix = "com.mumu.core.social.qq",name = "app-id")
+@ConditionalOnProperty(prefix = "com.mumu.social.qq",name = "app-id")
 public class QQAutoConfig extends SocialAutoConfigurerAdapter{
     @Autowired
     private SecurityProperties securityProperties;

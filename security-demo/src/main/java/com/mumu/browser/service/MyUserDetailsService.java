@@ -1,6 +1,8 @@
 package com.mumu.browser.service;
 
+import com.mumu.browser.dao.QQBeanDao;
 import com.mumu.browser.dao.UserDao;
+import com.mumu.core.social.qq.QQBean;
 import com.mumu.demo.bean.UserLogin;
 import com.mumu.demo.service.UserService;
 import org.slf4j.Logger;
@@ -33,6 +35,8 @@ public class MyUserDetailsService implements UserDetailsService,SocialUserDetail
     private UserService userService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private QQBeanDao qqBeanDao;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.info("登录用户名:" + username);
@@ -76,8 +80,10 @@ public class MyUserDetailsService implements UserDetailsService,SocialUserDetail
 
     @Override
     public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
+        //可以是名字，id等，只要唯一即可
         logger.info("登录用户ID:{}",userId);
-        UserLogin userLogin = userService.findByUserId(userId);
-        return new SocialUser(userId,);
+        QQBean qqBean = qqBeanDao.findByUserId(userId);
+        return new SocialUser(userId,qqBean.getSecret(),true,true,
+                true,true,AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
 }
