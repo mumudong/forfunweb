@@ -42,4 +42,8 @@ public class SecurityConstants {
      * 短信登录时传递的mobile
      */
     public static final String DEFAULT_LOGIN_PHONE_NUMBER = "LOGIN_PHONE";
+    /**
+     * session失效默认的跳转地址
+     */
+    public static final String DEFAULT_SESSION_INVALID_URL = "/session/invalid";
 }

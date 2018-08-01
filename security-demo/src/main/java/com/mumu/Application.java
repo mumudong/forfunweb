@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * TomcatEmbeddedServletContainerFactory
  * 默認掃描同包及子包
  */
 @SpringBootApplication
