@@ -13,6 +13,8 @@ public class BrowserProperties {
 
     private String signUpUrl = "/demo-signup.html";
 
+    private String signOutUrl;
+
     private int rememberMeSeconds = 60 * 60 * 24 * 7;
 
     public String getLoginPage() {
@@ -53,5 +55,13 @@ public class BrowserProperties {
 
     public void setSession(SessionProperties session) {
         this.session = session;
+    }
+
+    public String getSignOutUrl() {
+        return signOutUrl;
+    }
+
+    public void setSignOutUrl(String signOutUrl) {
+        this.signOutUrl = signOutUrl;
     }
 }
