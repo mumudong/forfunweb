@@ -2,7 +2,7 @@ package com.mumu.core.social.qq.config;
 
 import com.mumu.core.properties.QQProperties;
 import com.mumu.core.properties.SecurityProperties;
-import com.mumu.core.social.connect.QQConnectionFactory;
+import com.mumu.core.social.qq.connect.QQConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.social.SocialAutoConfigurerAdapter;

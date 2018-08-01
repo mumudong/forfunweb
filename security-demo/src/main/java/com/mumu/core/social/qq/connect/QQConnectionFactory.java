@@ -1,4 +1,4 @@
-package com.mumu.core.social.connect;
+package com.mumu.core.social.qq.connect;
 
 import com.mumu.core.social.qq.api.QQ;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;

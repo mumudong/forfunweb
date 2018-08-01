@@ -1,4 +1,4 @@
-package com.mumu.core.social.connect;
+package com.mumu.core.social.qq.connect;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
