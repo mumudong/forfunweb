@@ -56,7 +56,8 @@ public abstract class AbstractValidateCodeProcessor<T extends ValidateCode> impl
      * @param validateCode
      */
     private void save(ServletWebRequest request, T validateCode) {
-        sessionStrategy.setAttribute(request, getSessionKey(request), validateCode);
+        ValidateCode code = new ValidateCode(validateCode.getCode(),validateCode.getExpireTime());
+        sessionStrategy.setAttribute(request, getSessionKey(request), code);
         ValidateCodeType type = getValidateCodeType(request);
         if(ValidateCodeType.SMS.equals(type)){
             //将需要发送短信的手机号码放入session，然后登陆时比对

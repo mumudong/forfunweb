@@ -1,11 +1,13 @@
 package com.mumu.core.validate.code;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * 验证码基类
  */
-public class ValidateCode {
+public class ValidateCode implements Serializable{
+    private static final long serialVersionUID = 9196158026302317917L;
     private String code;
     private LocalDateTime expireTime;
 
