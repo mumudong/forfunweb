@@ -25,6 +25,9 @@ public abstract class AbstractValidateCodeProcessor<T extends ValidateCode> impl
      */
     @Autowired
     private Map<String, ValidateCodeGenerator> validateCodeGenerators;
+    @Autowired
+    private ValidateCodeRepository validateCodeRepository;
+
     @Override
     public void create(ServletWebRequest request) throws Exception {
         T validateCode = generate(request);
@@ -57,10 +60,12 @@ public abstract class AbstractValidateCodeProcessor<T extends ValidateCode> impl
      */
     private void save(ServletWebRequest request, T validateCode) {
         ValidateCode code = new ValidateCode(validateCode.getCode(),validateCode.getExpireTime());
-        sessionStrategy.setAttribute(request, getSessionKey(request), code);
+//        sessionStrategy.setAttribute(request, getSessionKey(request), code);
+        validateCodeRepository.save(request,code,getValidateCodeType(request));
         ValidateCodeType type = getValidateCodeType(request);
         if(ValidateCodeType.SMS.equals(type)){
             //将需要发送短信的手机号码放入session，然后登陆时比对
+            validateCodeRepository.save(request,)
             sessionStrategy.setAttribute(request, SecurityConstants.DEFAULT_LOGIN_PHONE_NUMBER,request.getParameter(SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE));
             logger.info("登陆的手机号是：{}",request.getParameter(SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE));
         }
