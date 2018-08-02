@@ -43,7 +43,7 @@ public class MyUserDetailsService implements UserDetailsService,SocialUserDetail
         logger.info("数据库密码是:" + password);
         return new User(username, password,
                 true, true, true, true,
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER"));
     }
     public UserDetails loadUserByPhone(String phone) throws UsernameNotFoundException {
         logger.info("登录号码:{}",phone);
@@ -54,7 +54,7 @@ public class MyUserDetailsService implements UserDetailsService,SocialUserDetail
 
         return new User(user.getUsername(), "六六六",
                 true, true, true, true,
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER"));
     }
 
     public UserDao getUserDao() {
@@ -79,6 +79,6 @@ public class MyUserDetailsService implements UserDetailsService,SocialUserDetail
         logger.info("登录用户ID:{}",userId);
         QQBean qqBean = qqBeanDao.findByUserId(userId);
         return new SocialUser(userId,qqBean.getSecret(),true,true,
-                true,true,AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+                true,true,AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER"));
     }
 }
