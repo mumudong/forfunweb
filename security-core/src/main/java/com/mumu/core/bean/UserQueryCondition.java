@@ -1,4 +1,4 @@
-package com.mumu.demo.bean;
+package com.mumu.core.bean;
 
 /**
  * Created by Administrator on 2018/7/25.

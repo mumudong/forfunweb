@@ -1,10 +1,10 @@
 package com.mumu.demo.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mumu.demo.bean.UserLogin;
-import com.mumu.demo.bean.UserQueryCondition;
+import com.mumu.core.bean.UserLogin;
+import com.mumu.core.bean.UserQueryCondition;
 import com.mumu.demo.exception.UserNotFoundException;
-import com.mumu.demo.service.UserService;
+import com.mumu.core.service.UserService;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.slf4j.Logger;

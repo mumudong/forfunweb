@@ -1,7 +1,7 @@
-package com.mumu.demo.dao;
+package com.mumu.core.dao;
 
-import com.mumu.demo.bean.UserLogin;
-import com.mumu.demo.bean.UserQueryCondition;
+import com.mumu.core.bean.UserLogin;
+import com.mumu.core.bean.UserQueryCondition;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

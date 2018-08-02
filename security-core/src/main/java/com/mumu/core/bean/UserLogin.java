@@ -1,9 +1,9 @@
-package com.mumu.demo.bean;
+package com.mumu.core.bean;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mumu.demo.validator.MyConstraint;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.persistence.*;
 import javax.validation.constraints.Past;
 import java.io.Serializable;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.mumu.demo.utils;
+package com.mumu.core.utils;
 
 import com.mumu.core.validate.code.image.ImageCode;
 import com.mumu.core.validate.code.ValidateCodeGenerator;

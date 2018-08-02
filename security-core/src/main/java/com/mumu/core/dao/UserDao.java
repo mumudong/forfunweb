@@ -1,6 +1,6 @@
-package com.mumu.demo.dao;
+package com.mumu.core.dao;
 
-import com.mumu.demo.bean.UserLogin;
+import com.mumu.core.bean.UserLogin;
 import org.springframework.data.repository.CrudRepository;
 
 /**

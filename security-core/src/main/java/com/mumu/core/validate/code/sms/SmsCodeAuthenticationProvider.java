@@ -1,6 +1,6 @@
 package com.mumu.core.validate.code.sms;
 
-import com.mumu.browser.service.MyUserDetailsService;
+import com.mumu.core.service.MyUserDetailsService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;

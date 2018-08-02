@@ -1,10 +1,10 @@
 package com.mumu.core.config;
 
-import com.mumu.browser.dao.UserDao;
-import com.mumu.browser.service.MyUserDetailsService;
+import com.mumu.core.dao.UserDao;
+import com.mumu.core.service.MyUserDetailsService;
+import com.mumu.core.service.UserService;
 import com.mumu.core.validate.code.sms.SmsCodeAuthenticationFilter;
 import com.mumu.core.validate.code.sms.SmsCodeAuthenticationProvider;
-import com.mumu.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;

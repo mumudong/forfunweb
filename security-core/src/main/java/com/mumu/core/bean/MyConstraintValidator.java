@@ -1,4 +1,4 @@
-package com.mumu.demo.validator;
+package com.mumu.core.bean;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

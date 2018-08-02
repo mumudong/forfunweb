@@ -1,4 +1,4 @@
-package com.mumu.demo.dao;
+package com.mumu.core.dao;
 
 import com.mumu.core.social.qq.QQBean;
 import org.springframework.data.repository.CrudRepository;

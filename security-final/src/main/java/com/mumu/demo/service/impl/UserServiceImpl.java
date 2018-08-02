@@ -1,9 +1,9 @@
 package com.mumu.demo.service.impl;
 
-import com.mumu.demo.bean.UserLogin;
-import com.mumu.demo.bean.UserQueryCondition;
-import com.mumu.demo.dao.UserMapper;
-import com.mumu.demo.service.UserService;
+import com.mumu.core.bean.UserLogin;
+import com.mumu.core.bean.UserQueryCondition;
+import com.mumu.core.dao.UserMapper;
+import com.mumu.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

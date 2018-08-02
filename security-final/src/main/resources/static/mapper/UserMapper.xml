@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mumu.demo.dao.UserMapper">
+<mapper namespace="com.mumu.core.dao.UserMapper">
 
-    <resultMap id="userResultMap" type="com.mumu.demo.bean.UserLogin">
+    <resultMap id="userResultMap" type="com.mumu.core.bean.UserLogin">
         <result column="id" property="id" />
         <result column="username" property="username" />
         <result column="password" property="password" />
@@ -45,7 +45,7 @@
         </where>
         limit 1
     </select>
-    <select id="findUserByCondition" parameterType="com.mumu.demo.bean.UserQueryCondition" resultMap="userResultMap">
+    <select id="findUserByCondition" parameterType="com.mumu.core.bean.UserQueryCondition" resultMap="userResultMap">
         <include refid="find_xxx" />
         <include refid="from_xxx" />
         <where>
@@ -88,7 +88,7 @@
         </where>
     </select>
 
-    <update id="update" parameterType="com.mumu.demo.bean.UserLogin">
+    <update id="update" parameterType="com.mumu.core.bean.UserLogin">
         UPDATE user
         <set>
             <if test="username != null and username!='' ">
@@ -104,7 +104,7 @@
         WHERE ID = #{id}
     </update>
 
-    <insert id="insert" parameterType="com.mumu.demo.bean.UserLogin">
+    <insert id="insert" parameterType="com.mumu.core.bean.UserLogin">
         insert into user(username,password,birthday,age) values(#{username},#{password},#{birthday},#{age})
     </insert>
 

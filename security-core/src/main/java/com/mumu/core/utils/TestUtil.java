@@ -1,4 +1,4 @@
-package com.mumu.demo.utils;
+package com.mumu.core.utils;
 
 /**
  * Created by Administrator on 2018/7/26.

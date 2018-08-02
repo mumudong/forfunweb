@@ -1,4 +1,4 @@
-package com.mumu.demo.utils;
+package com.mumu.core.utils;
 
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.JsonProcessingException;

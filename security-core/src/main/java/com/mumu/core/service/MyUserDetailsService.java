@@ -1,13 +1,12 @@
-package com.mumu.demo.service;
+package com.mumu.core.service;
 
-import com.mumu.demo.dao.QQBeanDao;
-import com.mumu.demo.dao.UserDao;
+import com.mumu.core.bean.UserLogin;
+import com.mumu.core.dao.QQBeanDao;
+import com.mumu.core.dao.UserDao;
 import com.mumu.core.social.qq.QQBean;
-import com.mumu.demo.bean.UserLogin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +22,6 @@ import org.springframework.stereotype.Component;
  * 登录验证UserServiceDetail
  */
 @Component("userDetailsService")
-@ComponentScan(basePackages = "{com.mumu.demo.service,com.mumu.demo.dao}")
 public class MyUserDetailsService implements UserDetailsService,SocialUserDetailsService{
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired

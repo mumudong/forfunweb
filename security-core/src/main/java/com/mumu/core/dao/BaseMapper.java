@@ -1,4 +1,4 @@
-package com.mumu.demo.dao;
+package com.mumu.core.dao;
 
 import java.util.List;
 import java.util.Map;

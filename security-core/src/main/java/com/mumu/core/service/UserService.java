@@ -1,7 +1,7 @@
-package com.mumu.demo.service;
+package com.mumu.core.service;
 
-import com.mumu.demo.bean.UserLogin;
-import com.mumu.demo.bean.UserQueryCondition;
+import com.mumu.core.bean.UserLogin;
+import com.mumu.core.bean.UserQueryCondition;
 
 import java.util.List;
 

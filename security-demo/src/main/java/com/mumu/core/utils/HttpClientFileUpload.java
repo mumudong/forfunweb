@@ -1,4 +1,4 @@
-package com.mumu.demo.utils;
+package com.mumu.core.utils;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;

@@ -1,4 +1,4 @@
-package com.mumu.demo.utils;
+package com.mumu.core.utils;
 
 import java.text.DateFormat;
 import java.util.Date;
