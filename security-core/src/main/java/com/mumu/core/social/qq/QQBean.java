@@ -1,6 +1,5 @@
 package com.mumu.core.social.qq;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -23,7 +22,7 @@ public class QQBean implements Serializable{
    private String secret;
    private String refreshToken ;
    private long expireTime;
-    @Id
+@Id
     public String getUserId() {
         return userId;
     }
