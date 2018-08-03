@@ -6,6 +6,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
 
+/**
+ * 这个类会在每个bean实例化的实例化的时候起作用
+ */
 @Component
 public class SpringSocialConfigurerPostProcessor implements BeanPostProcessor {
     @Override
@@ -15,6 +18,7 @@ public class SpringSocialConfigurerPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessAfterInitialization(Object o, String s) throws BeansException {
+        //app模式下，修改注册入口
         if(StringUtils.equals(s,"mySocialSecurityConfig")){
             MySpringSocialConfigurer config = (MySpringSocialConfigurer) o;
             config.signupUrl("/social/signUp");
