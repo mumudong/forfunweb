@@ -1,5 +1,6 @@
 package com.mumu.browser.controller;
 
+import com.mumu.core.bean.SocialUserInfo;
 import com.mumu.core.SimpleResponse;
 import com.mumu.browser.bean.SocialUserInfo;
 import com.mumu.core.properties.SecurityConstants;

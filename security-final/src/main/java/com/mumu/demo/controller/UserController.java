@@ -1,6 +1,7 @@
 package com.mumu.demo.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.mumu.app.signup.AppSignUpUtils;
 import com.mumu.core.bean.UserLogin;
 import com.mumu.core.bean.UserQueryCondition;
 import com.mumu.demo.exception.UserNotFoundException;
@@ -33,10 +34,14 @@ public class UserController {
     private UserService userService;
     @Autowired
     private ProviderSignInUtils providerSignInUtils;
+    @Autowired
+    private AppSignUpUtils appSignUpUtils;
+
     @PostMapping("/regist")
     public void regist(UserLogin user, HttpServletRequest request){
         String userId = user.getUsername();
-        providerSignInUtils.doPostSignUp(userId,new ServletWebRequest(request));
+//        providerSignInUtils.doPostSignUp(userId,new ServletWebRequest(request));
+        appSignUpUtils.doPostSignUp(new ServletWebRequest(request),userId);
     }
     @GetMapping("/me/me")
     public Object getCurrentUser(){

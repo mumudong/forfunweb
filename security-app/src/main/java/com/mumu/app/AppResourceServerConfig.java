@@ -63,7 +63,7 @@ public class AppResourceServerConfig extends ResourceServerConfigurerAdapter {
                                                 securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
                                                 securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
                                                 securityProperties.getBrowser().getSignOutUrl(),
-                                                "/user/regist").permitAll()
+                                                "/user/regist","/social/signUp").permitAll()
                     .anyRequest()
                     .authenticated()
                 .and()
