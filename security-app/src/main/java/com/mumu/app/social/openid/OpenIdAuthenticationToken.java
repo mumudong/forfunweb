@@ -11,8 +11,8 @@ import java.util.Collection;
 public class OpenIdAuthenticationToken extends AbstractAuthenticationToken{
 
     private static final long serialVersionUID = -3651584645416434603L;
-    private final Object principal;
-    private String providerId;
+    private final Object principal; //openid
+    private String providerId; //providerid
 
     public OpenIdAuthenticationToken(Object principal, String providerId) {
         super(null);
