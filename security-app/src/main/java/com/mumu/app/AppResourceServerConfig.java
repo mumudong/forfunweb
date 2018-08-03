@@ -1,5 +1,6 @@
 package com.mumu.app;
 
+import com.mumu.app.social.openid.OpenIdAuthenticationSeurityConfig;
 import com.mumu.core.config.SmsCodeAuthenticationSecurityConfig;
 import com.mumu.core.config.ValidateCodeSecurityConfig;
 import com.mumu.core.properties.SecurityConstants;
@@ -31,6 +32,8 @@ public class AppResourceServerConfig extends ResourceServerConfigurerAdapter {
     private SpringSocialConfigurer mySocialSecurityConfig;
     @Autowired
     private SecurityProperties securityProperties;
+    @Autowired
+    private OpenIdAuthenticationSeurityConfig openIdAuthenticationSeurityConfig;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -41,23 +44,26 @@ public class AppResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .failureHandler(myAuthenticationFailureHandler);
 
         http
-//                    .apply(validateCodeSecurityConfig)
-//                .and()
+                    .apply(validateCodeSecurityConfig)
+                .and()
                     .apply(smsCodeAuthenticationSecurityConfig)
                 .and()
                     .apply(mySocialSecurityConfig)
                 .and()
+                    .apply(openIdAuthenticationSeurityConfig)
+                .and()
                     .authorizeRequests()
                      .antMatchers(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-                    SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-                    securityProperties.getBrowser().getLoginPage(),
-                    SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-                    securityProperties.getBrowser().getSignUpUrl(),
-                    securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".html",
-                    securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
-                    securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
-                    securityProperties.getBrowser().getSignOutUrl(),
-                    "/user/regist").permitAll()
+                                                SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+                                                SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_OPENID,
+                                                SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
+                                                securityProperties.getBrowser().getLoginPage(),
+                                                securityProperties.getBrowser().getSignUpUrl(),
+                                                securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".html",
+                                                securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
+                                                securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
+                                                securityProperties.getBrowser().getSignOutUrl(),
+                                                "/user/regist").permitAll()
                     .anyRequest()
                     .authenticated()
                 .and()

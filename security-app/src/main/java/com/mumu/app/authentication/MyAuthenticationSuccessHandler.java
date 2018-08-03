@@ -3,6 +3,9 @@ package com.mumu.app.authentication;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mumu.core.properties.LoginResponseType;
 import com.mumu.core.properties.SecurityProperties;
+import com.mumu.core.validate.code.ValidateCodeRepository;
+import com.mumu.core.validate.code.ValidateCodeType;
+import com.mumu.core.validate.code.sms.SmsCodeAuthenticationToken;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bouncycastle.util.encoders.Base64;
@@ -17,6 +20,8 @@ import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -35,9 +40,15 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
     private ClientDetailsService clientDetailsService;
     @Autowired
     private AuthorizationServerTokenServices authorizationServerTokenServices;
+    @Autowired
+    private ValidateCodeRepository validateCodeRepository;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         logger.info(String.format("登录成功 %s",""));
+        if(authentication instanceof SmsCodeAuthenticationToken){
+            ServletWebRequest req = new ServletWebRequest(request,response);
+            validateCodeRepository.remove(req, ValidateCodeType.SMS,true);
+        }
 
         String header = request.getHeader("Authorization");
         if(header == null || !header.startsWith("Basic ")){

@@ -61,14 +61,13 @@ public abstract class AbstractValidateCodeProcessor<T extends ValidateCode> impl
     private void save(ServletWebRequest request, T validateCode) {
         ValidateCode code = new ValidateCode(validateCode.getCode(),validateCode.getExpireTime());
 //        sessionStrategy.setAttribute(request, getSessionKey(request), code);
-        validateCodeRepository.save(request,code,getValidateCodeType(request));
         ValidateCodeType type = getValidateCodeType(request);
-        if(ValidateCodeType.SMS.equals(type)){
-            //将需要发送短信的手机号码放入session，然后登陆时比对
-            validateCodeRepository.save(request,)
-            sessionStrategy.setAttribute(request, SecurityConstants.DEFAULT_LOGIN_PHONE_NUMBER,request.getParameter(SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE));
-            logger.info("登陆的手机号是：{}",request.getParameter(SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE));
-        }
+        validateCodeRepository.save(request,code,type);
+//        if(ValidateCodeType.SMS.equals(type)){
+//            //将需要发送短信的手机号码放入session，然后登陆时比对
+//            sessionStrategy.setAttribute(request, SecurityConstants.DEFAULT_LOGIN_PHONE_NUMBER,request.getParameter(SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE));
+//            logger.info("登陆的手机号是：{}",request.getParameter(SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE));
+//        }
     }
 
 
@@ -107,9 +106,10 @@ public abstract class AbstractValidateCodeProcessor<T extends ValidateCode> impl
     public void validate(ServletWebRequest request) {
 
         ValidateCodeType processorType = getValidateCodeType(request);
-        String sessionKey = getSessionKey(request);
+//        String sessionKey = getSessionKey(request);
 
-        T codeInSession = (T) sessionStrategy.getAttribute(request, sessionKey);
+//        T codeInSession = (T) sessionStrategy.getAttribute(request, sessionKey);
+        T codeInSession = (T) validateCodeRepository.getCode(request,processorType);
 
         String codeInRequest;
         try {
@@ -130,7 +130,8 @@ public abstract class AbstractValidateCodeProcessor<T extends ValidateCode> impl
         }
 
         if (codeInSession.isExpired()) {
-            sessionStrategy.removeAttribute(request, sessionKey);
+//            sessionStrategy.removeAttribute(request, sessionKey);
+            validateCodeRepository.remove(request,processorType,true);
             throw new ValidateCodeException(processorType + "验证码已过期");
         }
 
@@ -138,7 +139,8 @@ public abstract class AbstractValidateCodeProcessor<T extends ValidateCode> impl
             throw new ValidateCodeException(processorType + "验证码不匹配");
         }
 
-        sessionStrategy.removeAttribute(request, sessionKey);
+//        sessionStrategy.removeAttribute(request, sessionKey);
+        validateCodeRepository.remove(request,processorType,false);
     }
 
 }

@@ -25,6 +25,8 @@ public class SocialConfig extends SocialConfigurerAdapter{
     private SecurityProperties securityProperties;
     @Autowired(required = false)
     private ConnectionSignUp connectionSignUp;
+    @Autowired(required = false)
+    private SocialAuthenticationFilterPostProcessor socialAuthenticationFilterPostProcessor;
 
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
@@ -41,6 +43,7 @@ public class SocialConfig extends SocialConfigurerAdapter{
         String filterProcessesUrl = securityProperties.getSocial().getFilterProcessesUrl();
         MySpringSocialConfigurer configurer = new MySpringSocialConfigurer(filterProcessesUrl);
         configurer.signupUrl(securityProperties.getBrowser().getSignUpUrl());
+        configurer.setSocialAuthenticationFilterPostProcessor(socialAuthenticationFilterPostProcessor);
         return configurer;
     }
     @Bean

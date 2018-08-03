@@ -45,4 +45,10 @@ public class SecurityConstants {
      * public static final String DEFAULT_SESSION_INVALID_URL = "/session/invalid";
      */
     public static final String DEFAULT_SESSION_INVALID_URL = "/demo-session-invalid.html";
+
+    public static final String DEFAULT_PARAMETER_NAME_OPENID = "openId";
+
+    public static final String DEFAULT_PARAMETER_NAME_PROVIDERID = "providerId";
+
+    public static final String DEFAULT_LOGIN_PROCESSING_URL_OPENID = "/authentication/openid";
 }

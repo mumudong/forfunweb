@@ -1,6 +1,8 @@
 package com.mumu.core.validate.code.sms;
 
 import com.mumu.core.properties.SecurityConstants;
+import com.mumu.core.validate.code.ValidateCodeRepository;
+import com.mumu.core.validate.code.ValidateCodeType;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -21,6 +23,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
     private String smsCodeParameter = SecurityConstants.DEFAULT_PARAMETER_NAME_CODE_SMS;
     private boolean postOnly = true;
     SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
+    private ValidateCodeRepository validateCodeRepository ;
 
     public SmsCodeAuthenticationFilter(){
         super(new AntPathRequestMatcher(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,"POST"));
@@ -37,7 +40,8 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
         }
         mobile = mobile.trim();
         ServletWebRequest webRequest = new ServletWebRequest(request,response);
-        if(!mobile.equals(sessionStrategy.getAttribute(webRequest,SecurityConstants.DEFAULT_LOGIN_PHONE_NUMBER))){
+//        if(!mobile.equals(sessionStrategy.getAttribute(webRequest,SecurityConstants.DEFAULT_LOGIN_PHONE_NUMBER))){
+        if(!mobile.equals(validateCodeRepository.getPhone(webRequest, ValidateCodeType.SMS))){
             throw new AuthenticationServiceException("登陆手机号码与发送验证码手机号码不一致！");
         }
         SmsCodeAuthenticationToken authToKen = new SmsCodeAuthenticationToken(mobile);
@@ -67,4 +71,11 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
         return mobileParameter;
     }
 
+    public ValidateCodeRepository getValidateCodeRepository() {
+        return validateCodeRepository;
+    }
+
+    public void setValidateCodeRepository(ValidateCodeRepository validateCodeRepository) {
+        this.validateCodeRepository = validateCodeRepository;
+    }
 }
