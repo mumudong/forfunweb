@@ -1,6 +1,8 @@
 package com.mumu.app;
 
 import com.mumu.app.social.openid.OpenIdAuthenticationSeurityConfig;
+import com.mumu.core.config.AuthorizeConfigManager;
+import com.mumu.core.config.FormAuthenticationConfig;
 import com.mumu.core.config.SmsCodeAuthenticationSecurityConfig;
 import com.mumu.core.config.ValidateCodeSecurityConfig;
 import com.mumu.core.properties.SecurityConstants;
@@ -27,21 +29,21 @@ public class AppResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
     @Autowired
+    private OpenIdAuthenticationSeurityConfig openIdAuthenticationSeurityConfig;
+    @Autowired
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
     @Autowired
     private SpringSocialConfigurer mySocialSecurityConfig;
     @Autowired
     private SecurityProperties securityProperties;
     @Autowired
-    private OpenIdAuthenticationSeurityConfig openIdAuthenticationSeurityConfig;
+    private AuthorizeConfigManager myAuthorizeConfigManager;
+    @Autowired
+    private FormAuthenticationConfig formAuthenticationConfig;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
-                .loginPage(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
-                .loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM)
-                .successHandler(myAuthenticationSuccessHandler)
-                .failureHandler(myAuthenticationFailureHandler);
+        formAuthenticationConfig.configure(http);
 
         http
                     .apply(validateCodeSecurityConfig)
@@ -51,22 +53,24 @@ public class AppResourceServerConfig extends ResourceServerConfigurerAdapter {
                     .apply(mySocialSecurityConfig)
                 .and()
                     .apply(openIdAuthenticationSeurityConfig)
-                .and()
-                    .authorizeRequests()
-                     .antMatchers(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-                                                SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-                                                SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_OPENID,
-                                                SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-                                                securityProperties.getBrowser().getLoginPage(),
-                                                securityProperties.getBrowser().getSignUpUrl(),
-                                                securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".html",
-                                                securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
-                                                securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
-                                                securityProperties.getBrowser().getSignOutUrl(),
-                                                "/user/regist","/social/signUp").permitAll()
-                    .anyRequest()
-                    .authenticated()
+//                .and()
+//                    .authorizeRequests()
+//                     .antMatchers(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
+//                                                SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+//                                                SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_OPENID,
+//                                                SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
+//                                                securityProperties.getBrowser().getLoginPage(),
+//                                                securityProperties.getBrowser().getSignUpUrl(),
+//                                                securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".html",
+//                                                securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
+//                                                securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
+//                                                securityProperties.getBrowser().getSignOutUrl(),
+//                                                "/user/regist","/social/signUp").permitAll()
+//                    .anyRequest()
+//                    .authenticated()
                 .and()
                     .csrf().disable();
+
+        myAuthorizeConfigManager.config(http.authorizeRequests());
     }
 }

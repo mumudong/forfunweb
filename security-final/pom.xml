@@ -20,7 +20,7 @@
         </dependency>
         <dependency>
             <groupId>spring-security</groupId>
-            <artifactId>security-app</artifactId>
+            <artifactId>security-browser</artifactId>
             <version>${mumu.security.version}</version>
         </dependency>
         <dependency>

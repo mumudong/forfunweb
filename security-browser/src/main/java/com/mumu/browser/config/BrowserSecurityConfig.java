@@ -1,8 +1,6 @@
 package com.mumu.browser.config;
 
-import com.mumu.core.config.AbstractChannelSecurityConfig;
-import com.mumu.core.config.SmsCodeAuthenticationSecurityConfig;
-import com.mumu.core.config.ValidateCodeSecurityConfig;
+import com.mumu.core.config.*;
 import com.mumu.core.properties.SecurityConstants;
 import com.mumu.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +41,10 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     private InvalidSessionStrategy invalidSessionStrategy;
     @Autowired
     private LogoutSuccessHandler logoutSuccessHandler;
+    @Autowired
+    private AuthorizeConfigManager myAuthorizeConfigManager;
+    @Autowired
+    private FormAuthenticationConfig formAuthenticationConfig;
 
 //    @Bean
 //    public PasswordEncoder passwordEncoder(){
@@ -82,23 +84,24 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                     .logoutUrl("/signOut")
                     .logoutSuccessHandler(logoutSuccessHandler)
                     .deleteCookies("JSESSIONID")
-                .and()
-                    .authorizeRequests()
-                    .antMatchers(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-                            SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-                            securityProperties.getBrowser().getLoginPage(),
-                            SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
-                            securityProperties.getBrowser().getSignUpUrl(),
-                            securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".html",
-                            securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
-                            securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
-                            securityProperties.getBrowser().getSignOutUrl(),
-                            "/user/regist").permitAll()
-                    .anyRequest()
-                    .authenticated()
+//                .and()
+//                    .authorizeRequests()
+//                    .antMatchers(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
+//                            SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+//                            securityProperties.getBrowser().getLoginPage(),
+//                            SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
+//                            securityProperties.getBrowser().getSignUpUrl(),
+//                            securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".html",
+//                            securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
+//                            securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
+//                            securityProperties.getBrowser().getSignOutUrl(),
+//                            "/user/regist").permitAll()
+//                    .anyRequest()
+//                    .authenticated()
                 .and()
                   .csrf().disable();
 
+        myAuthorizeConfigManager.config(http.authorizeRequests());
     }
 
 }
