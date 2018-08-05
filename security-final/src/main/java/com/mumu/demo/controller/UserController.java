@@ -4,13 +4,18 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.mumu.app.signup.AppSignUpUtils;
 import com.mumu.core.bean.UserLogin;
 import com.mumu.core.bean.UserQueryCondition;
+import com.mumu.core.properties.SecurityProperties;
 import com.mumu.demo.exception.UserNotFoundException;
 import com.mumu.core.service.UserService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.validation.BindingResult;
@@ -36,6 +41,8 @@ public class UserController {
     private ProviderSignInUtils providerSignInUtils;
     @Autowired
     private AppSignUpUtils appSignUpUtils;
+    @Autowired
+    private SecurityProperties securityProperties;
 
     @PostMapping("/regist")
     public void regist(UserLogin user, HttpServletRequest request){
@@ -46,6 +53,16 @@ public class UserController {
     @GetMapping("/me/me")
     public Object getCurrentUser(){
         return SecurityContextHolder.getContext().getAuthentication();
+    }
+
+    @GetMapping("/me")
+    public Object getCurUser(Authentication user,HttpServletRequest request) throws Exception{
+        String token = StringUtils.substringAfter(request.getHeader("Authorization"),"bearer ");
+        Claims claims = Jwts.parser().setSigningKey(securityProperties.getOauth2().getJwtSigningKey().getBytes("UTF-8"))
+                                .parseClaimsJws(token).getBody();
+        String extInfo = (String)claims.get("extInfo");
+        logger.info("extInfo:{}",extInfo);
+        return user;
     }
 
     @PostMapping

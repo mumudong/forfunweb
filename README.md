@@ -29,3 +29,19 @@ security social
         API                              (OAuth2ConnectionFactory)
     (AbstractOAuth2APIBinding)              ServiceProvider
                                              ApiAdapter
+                                             
+                                             
+jwt username登录
+    /oauth/token                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
